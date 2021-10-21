@@ -2,13 +2,25 @@
   <thead>
   <tr>
     <th>Id</th>
-    <th>Serientitel</th>
+    <th>Serientitel
+    <th></th>
+    <th>&nbsp;</th>
   </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let s of shows">
-      <td>{{s.id}}</td>
-      <td>{{s.title}}</td>
-    </tr>
+    <ng-container *ngFor="let s of shows">
+      <tr *ngIf="!toEdit(s)">
+        <td>{{s.id}}</td>
+        <td>{{s.title}}</td>
+        <td><button class="material-icons" (click)="edit(s)">edit</button></td>
+        <td><button class="material-icons" (click)="deleteShow(s)">delete</button></td>
+      </tr>
+      <tr *ngIf="toEdit(s)">
+        <td><input class="form-control" id="newShowId" name = "newShowId" type = number [(ngModel)]="s.id"></td>
+        <td><input class="form-control" id="newShowTitle" name="newShowTitle" type = string [(ngModel)]="s.title"></td>
+        <td colspan="2"><button class="material-icons" (click)="saveEdit()">save</button></td>
+      </tr>
+    </ng-container>
+
   </tbody>
 </table>

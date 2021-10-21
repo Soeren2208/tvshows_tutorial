@@ -12,4 +12,17 @@ export class ShowDataService {
     this.shows.push(new Show(2, "Die Brücke"));
     this.shows.push(new Show(3, "Der Wald"));
   }
+
+  addShow(show: Show){
+    this.shows.push(show);
+  }
+
+  updateShow(show: Show){
+    this.shows = this.shows.filter(s => show!= s);
+    this.shows.push(show);
+  }
+
+  deleteShow(show: Show):void{
+    this.shows= this.shows.filter(s => s!=show);
+  }
 }

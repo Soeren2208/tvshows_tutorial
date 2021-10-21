@@ -8,6 +8,7 @@ import {ShowDataService} from "../../service/show-data.service";
   styleUrls: ['./show-list.component.css']
 })
 export class ShowListComponent implements OnInit {
+  editShow: Show = null;
 
   constructor(private showDataService: ShowDataService) {}
 
@@ -17,5 +18,29 @@ export class ShowListComponent implements OnInit {
   get shows(): Show[]{
     return this.showDataService.shows;
   }
+
+  edit(show: Show): void{
+    this.editShow = show;
+  }
+
+  toEdit(show: Show): boolean {
+    if (!this.editShow) {
+      return false;
+    } else if (this.editShow !== show) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  saveEdit(): void{
+    this.showDataService.updateShow(this.editShow);
+    this.editShow=null;
+  }
+
+  deleteShow(show: Show): void{
+    this.showDataService.deleteShow(show);
+  }
+
 
 }
