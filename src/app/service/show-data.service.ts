@@ -1,31 +1,45 @@
 import { Injectable } from '@angular/core';
 import {Show} from "../model/show";
 import { HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShowDataService {
-  shows: Show[] = [];
+  shows: Observable<Show[]>;
   detailShow: Show=null;
+  private series = 'table_show';
 
-  constructor(private httpClient: HttpClient) {
-    this.shows.push(new Show(1, "Game of Throns"));
-    this.shows.push(new Show(2, "Die Brücke"));
-    this.shows.push(new Show(3, "Der Wald"));
+  constructor(private httpClient: HttpClient, private af: AngularFirestore) {
+    this.shows = af.collection(this.series).valueChanges({idField:'uid'}) as Observable<Show[]>;
   }
 
-  addShow(show: Show){
-    this.shows.push(show);
+  async addShow(show: Show){
+    try{
+      const data: any = await this.httpClient.get('https://api.tvmaze.com/singlesearch/shows?q=' + show.title).toPromise();
+      if(data.name != show.title){
+        this.af.collection(this.series).add({
+          id: show.id,
+          title: show.title
+        })
+      }
+    }
+    catch(e){
+      alert('Es wurde leider keine passende Serie gefunden!');
+    }
   }
 
   updateShow(show: Show){
-    this.shows = this.shows.filter(s => show!= s);
-    this.shows.push(show);
+    this.af.collection(this.series).doc(show.uid).update({
+      id: show.id,
+      title: show.title
+    });
   }
 
   deleteShow(show: Show):void{
-    this.shows= this.shows.filter(s => s!=show);
+    this.af.collection(this.series).doc(show.uid).delete();
   }
 
   async showShowDetails(show: Show){

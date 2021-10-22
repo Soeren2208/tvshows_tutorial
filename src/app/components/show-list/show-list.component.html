@@ -8,7 +8,7 @@
   </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let s of shows">
+    <ng-container *ngFor="let s of shows | async">
       <tr *ngIf="!toEdit(s)">
         <td (click)="showDetails(s)">{{s.id}}</td>
         <td (click)="showDetails(s)">{{s.title}}</td>

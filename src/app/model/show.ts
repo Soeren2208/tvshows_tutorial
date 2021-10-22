@@ -1,3 +1,3 @@
 export class Show{
-  constructor(public id: number, public title: string, public image?: string, public summary?: string){}
+  constructor(public uid: string, public id: number, public title: string, public image?: string, public summary?: string){}
 }

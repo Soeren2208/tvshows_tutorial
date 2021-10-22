@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Show } from '../../model/show';
 import {ShowDataService} from "../../service/show-data.service";
+import { Observable} from "rxjs";
 
 @Component({
   selector: 'app-show-list',
@@ -15,7 +16,7 @@ export class ShowListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get shows(): Show[]{
+  get shows(): Observable<Show[]>{
     return this.showDataService.shows;
   }
 

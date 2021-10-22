@@ -10,7 +10,7 @@ import {ShowDataService} from "../../service/show-data.service";
 export class ShowFormComponent implements OnInit {
   show: Show;
   constructor(private showDataService: ShowDataService) {
-    this.show = new Show(null, null);
+    this.show = new Show(null, null, null);
   }
 
   ngOnInit(): void {
@@ -18,7 +18,7 @@ export class ShowFormComponent implements OnInit {
 
   save(): void{
     this.showDataService.addShow(this.show);
-    this.show = new Show(null, null);
+    this.show = new Show(null,null, null);
   }
 
 }
