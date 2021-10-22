@@ -10,8 +10,8 @@
   <tbody>
     <ng-container *ngFor="let s of shows">
       <tr *ngIf="!toEdit(s)">
-        <td>{{s.id}}</td>
-        <td>{{s.title}}</td>
+        <td (click)="showDetails(s)">{{s.id}}</td>
+        <td (click)="showDetails(s)">{{s.title}}</td>
         <td><button class="material-icons" (click)="edit(s)">edit</button></td>
         <td><button class="material-icons" (click)="deleteShow(s)">delete</button></td>
       </tr>

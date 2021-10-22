@@ -42,5 +42,9 @@ export class ShowListComponent implements OnInit {
     this.showDataService.deleteShow(show);
   }
 
+  showDetails(show: Show){
+    this.showDataService.showShowDetails(show);
+  }
+
 
 }
